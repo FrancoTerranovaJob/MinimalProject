@@ -3,10 +3,10 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:minimal/app/data/clients_data/clients_api/clients_api.dart';
 import 'package:minimal/app/data/clients_data/clients_api/clients_api_impl.dart';
+import 'package:minimal/app/data/secure_storage/secure_storage.dart';
+import 'package:minimal/app/data/secure_storage/secure_storage_impl.dart';
 
 import 'package:minimal/app/data/user_data/user_api/user_api.dart';
-import 'package:minimal/app/data/user_data/user_secure_storage/user_secure_storage.dart';
-import 'package:minimal/app/data/user_data/user_secure_storage/user_secure_storage_impl.dart';
 
 import 'package:minimal/app/domain/client_domain/clients_repository/clients_repository.dart';
 import 'package:minimal/app/domain/user_domain/use_cases/user_use_cases.dart';
@@ -29,7 +29,7 @@ void setupDI() {
     baseUrl: 'https://agency-coda.uc.r.appspot.com',
   ))
     ..interceptors.add(PrettyDioLogger()));
-  services.registerSingleton<UserSecureStorage>(UserSecureStorageImpl());
+  services.registerSingleton<SecureStorage>(SecureStorageImpl());
   services.registerLazySingleton<ClientsApi>(() => ClientsApiImpl());
   services
       .registerLazySingleton<ClientsRepository>(() => ClientsRepositoryImpl());
@@ -39,4 +39,6 @@ void setupDI() {
 
   services.registerLazySingleton<LoginUseCase>(() => LoginUseCase());
   services.registerLazySingleton<IsLoggedUseCase>(() => IsLoggedUseCase());
+  services
+      .registerLazySingleton<IsValidLoginUseCase>(() => IsValidLoginUseCase());
 }

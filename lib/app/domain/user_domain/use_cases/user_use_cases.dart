@@ -1,4 +1,5 @@
 import 'package:minimal/app/domain/user_domain/entities/login.dart';
+import 'package:minimal/app/domain/user_domain/entities/user.dart';
 import 'package:minimal/app/domain/user_domain/user_repository/user_repository.dart';
 import 'package:minimal/di/get_it.dart';
 
@@ -23,5 +24,21 @@ class IsLoggedUseCase {
     } catch (e) {
       rethrow;
     }
+  }
+}
+
+class IsValidLoginUseCase {
+  bool call(Login login) {
+    var emailDomain = '';
+    var emailUserName = '';
+    if (login.email.contains('@')) {
+      final emailSplit = login.email.split('@');
+      emailUserName = emailSplit[0];
+      emailDomain = emailSplit[1];
+    }
+
+    return emailUserName.isNotEmpty &&
+        emailDomain.isNotEmpty &&
+        login.password.isNotEmpty;
   }
 }

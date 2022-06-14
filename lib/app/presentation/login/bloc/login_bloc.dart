@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:minimal/app/common/exceptions/api_exception.dart';
@@ -7,7 +5,6 @@ import 'package:minimal/app/data/user_data/user_api/exceptions/user_api_exceptio
 import 'package:minimal/app/domain/user_domain/entities/login.dart';
 import 'package:minimal/app/domain/user_domain/use_cases/user_use_cases.dart';
 import 'package:minimal/app/domain/user_domain/user_repository/exceptions/user_repository_exceptions.dart';
-import 'package:minimal/app/presentation/login/bloc/login_bloc.dart';
 import 'package:minimal/di/get_it.dart';
 
 part 'login_event.dart';
@@ -15,6 +12,7 @@ part 'login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final loginUseCase = services.get<LoginUseCase>();
+  final isValidLoginUseCase = services.get<IsValidLoginUseCase>();
   LoginBloc(LoginState loginInitial) : super(loginInitial) {
     on<EmailChangedEvent>(_onEmailChanged);
 
@@ -28,26 +26,33 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   }
 
   void _onEmailChanged(EmailChangedEvent event, Emitter<LoginState> emit) {
+    final changedLogin =
+        Login(email: event.email, password: state.login.password);
     emit(AddingLoginCredentialsState(
-        login: Login(email: event.email, password: state.login.password),
-        enableButton:
-            (event.email.isNotEmpty && state.login.password.isNotEmpty),
+        login: changedLogin,
+        enableButton: isValidLoginUseCase.call(changedLogin),
         showEmail: state.showEmail,
         showPassword: state.showPassword));
   }
 
   void _onPasswordChanged(
       PasswordChangedEvent event, Emitter<LoginState> emit) {
+    final changedLogin =
+        Login(email: state.login.email, password: event.password);
     emit(AddingLoginCredentialsState(
-        login: Login(email: state.login.email, password: event.password),
-        enableButton:
-            (state.login.email.isNotEmpty && event.password.isNotEmpty),
+        login: changedLogin,
+        enableButton: isValidLoginUseCase.call(changedLogin),
         showEmail: state.showEmail,
         showPassword: state.showPassword));
   }
 
   void _onLoginButtonPressed(
       LoginButtonPressedEvent event, Emitter<LoginState> emit) async {
+    emit(LoginLoadingstate(
+        login: state.login,
+        enableButton: state.enableButton,
+        showEmail: state.showEmail,
+        showPassword: state.showPassword));
     try {
       final response = await loginUseCase.call(state.login);
       if (response) {

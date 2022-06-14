@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:minimal/app/presentation/client_list/client_page.dart';
 import 'package:minimal/app/presentation/home/bloc/home_bloc.dart';
 import 'package:minimal/app/presentation/login/login_page.dart';
-import 'package:minimal/app/presentation/user_list/user_list.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -29,7 +29,7 @@ class HomePage extends StatelessWidget {
   }
 
   Widget _loggedPage() {
-    return const UserListPage();
+    return const ClientPage();
   }
 
   Widget _notLoggedPage() {

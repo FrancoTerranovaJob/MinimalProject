@@ -7,9 +7,13 @@ class PasswordField extends StatelessWidget {
   final Function(String text) onChange;
   final Function() onShowPressed;
 
-  final TextEditingController textEditingController = TextEditingController();
+  final TextEditingController textEditingController;
 
-  PasswordField({Key? key, required this.onChange, required this.onShowPressed})
+  const PasswordField(
+      {Key? key,
+      required this.onChange,
+      required this.onShowPressed,
+      required this.textEditingController})
       : super(key: key);
 
   @override

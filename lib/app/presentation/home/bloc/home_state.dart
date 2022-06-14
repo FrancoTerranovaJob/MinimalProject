@@ -4,8 +4,8 @@ enum LoginStatus { logged, notLogged }
 
 abstract class HomeState extends Equatable {
   final LoginStatus loginStatus;
-
-  const HomeState({required this.loginStatus});
+  final User? session;
+  const HomeState({required this.loginStatus, this.session});
 
   @override
   List<Object> get props => [loginStatus];

@@ -6,8 +6,12 @@ import 'package:minimal/app/presentation/login/bloc/login_bloc.dart';
 class EmailField extends StatelessWidget {
   final Function(String text) onChange;
   final Function() onShowPressed;
-  final TextEditingController textEditingController = TextEditingController();
-  EmailField({Key? key, required this.onChange, required this.onShowPressed})
+  final TextEditingController textEditingController;
+  EmailField(
+      {Key? key,
+      required this.onChange,
+      required this.onShowPressed,
+      required this.textEditingController})
       : super(key: key);
 
   @override

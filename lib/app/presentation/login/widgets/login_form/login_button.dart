@@ -13,9 +13,9 @@ class LoginButton extends StatelessWidget {
     return BlocBuilder<LoginBloc, LoginState>(
       builder: (context, state) {
         return Padding(
-          padding: const EdgeInsets.only(right: 26.0, left: 26.0, top: 26.0),
+          padding: const EdgeInsets.only(right: 26.0, left: 26.0, top: 30.0),
           child: DenseButton(
-            onPressed: onPressed,
+            onPressed: state.enableButton ? onPressed : null,
             buttonText: 'LOG IN',
           ),
         );

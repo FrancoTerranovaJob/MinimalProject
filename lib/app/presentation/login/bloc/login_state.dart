@@ -35,7 +35,7 @@ class LoginInitial extends LoginState {
 }
 
 class AddingLoginCredentialsState extends LoginState {
-  AddingLoginCredentialsState(
+  const AddingLoginCredentialsState(
       {required super.login,
       required super.enableButton,
       required super.showEmail,
@@ -43,7 +43,7 @@ class AddingLoginCredentialsState extends LoginState {
 }
 
 class LoginErrorState extends LoginState {
-  LoginErrorState(
+  const LoginErrorState(
       {required super.login,
       required super.enableButton,
       required super.showEmail,
@@ -52,7 +52,7 @@ class LoginErrorState extends LoginState {
 }
 
 class LoginLoadingstate extends LoginState {
-  LoginLoadingstate(
+  const LoginLoadingstate(
       {required super.login,
       required super.enableButton,
       required super.showEmail,
@@ -60,7 +60,7 @@ class LoginLoadingstate extends LoginState {
 }
 
 class LoginSuccessState extends LoginState {
-  LoginSuccessState(
+  const LoginSuccessState(
       {required super.login,
       required super.enableButton,
       required super.showEmail,

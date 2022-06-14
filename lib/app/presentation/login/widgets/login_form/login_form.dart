@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:minimal/app/presentation/home/bloc/home_bloc.dart';
 import 'package:minimal/app/presentation/login/bloc/login_bloc.dart';
+import 'package:minimal/app/presentation/login/widgets/loading_progress/loading_progress.dart';
 import 'package:minimal/app/presentation/login/widgets/login_form/email_field.dart';
+
 import 'package:minimal/app/presentation/login/widgets/login_form/login_button.dart';
 import 'package:minimal/app/presentation/login/widgets/login_form/password_field.dart';
 
 class LoginForm extends StatelessWidget {
-  const LoginForm({Key? key}) : super(key: key);
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  LoginForm({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,24 +23,30 @@ class LoginForm extends StatelessWidget {
       listener: (context, state) {
         homeBloc.add(UserLoggedEvent());
       },
-      child: Column(
+      child: Stack(
         children: [
-          EmailField(
-            onChange: (text) =>
-                _addLoginBlocEvent(EmailChangedEvent(text), loginBloc),
-            onShowPressed: () =>
-                _addLoginBlocEvent(ShowEmailEvent(), loginBloc),
+          Column(
+            children: [
+              EmailField(
+                textEditingController: emailController,
+                onChange: (text) =>
+                    _addLoginBlocEvent(EmailChangedEvent(text), loginBloc),
+                onShowPressed: () =>
+                    _addLoginBlocEvent(ShowEmailEvent(), loginBloc),
+              ),
+              PasswordField(
+                textEditingController: passwordController,
+                onChange: (text) =>
+                    _addLoginBlocEvent(PasswordChangedEvent(text), loginBloc),
+                onShowPressed: () =>
+                    _addLoginBlocEvent(ShowPasswordEvent(), loginBloc),
+              ),
+              LoginButton(onPressed: () {
+                FocusScope.of(context).unfocus();
+                _addLoginBlocEvent(LoginButtonPressedEvent(), loginBloc);
+              }),
+            ],
           ),
-          PasswordField(
-            onChange: (text) =>
-                _addLoginBlocEvent(PasswordChangedEvent(text), loginBloc),
-            onShowPressed: () =>
-                _addLoginBlocEvent(ShowPasswordEvent(), loginBloc),
-          ),
-          LoginButton(
-            onPressed: () =>
-                _addLoginBlocEvent(LoginButtonPressedEvent(), loginBloc),
-          )
         ],
       ),
     );

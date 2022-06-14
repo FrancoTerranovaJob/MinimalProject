@@ -36,6 +36,9 @@ class MinimalAppTheme {
               secondary: const Color(0xFF0D1111),
               surface: const Color(0xFF434545),
             ),
+        textSelectionTheme: const TextSelectionThemeData(
+          selectionHandleColor: Color(0xFF434545),
+        ),
         inputDecorationTheme: InputDecorationTheme(
           focusedBorder: const UnderlineInputBorder(
               borderSide: BorderSide(color: Color(0xFF0D1111))),

@@ -1,7 +1,4 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class LoginBackground extends StatelessWidget {
   const LoginBackground({Key? key}) : super(key: key);
