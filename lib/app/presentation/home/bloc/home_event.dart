@@ -8,3 +8,8 @@ class CheckUserSessionEvent extends HomeEvent {
   @override
   List<Object> get props => [];
 }
+
+class UserLoggedEvent extends HomeEvent {
+  @override
+  List<Object> get props => [];
+}

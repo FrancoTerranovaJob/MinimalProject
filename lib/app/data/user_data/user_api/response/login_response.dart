@@ -1,6 +1,8 @@
 import 'package:equatable/equatable.dart';
 
-class LoginResponse extends Equatable {
+abstract class LoginResponse {}
+
+class LoginResponseSuccess extends Equatable implements LoginResponse {
   final int id;
   final String firstname;
   final String lastname;
@@ -15,7 +17,7 @@ class LoginResponse extends Equatable {
   final String tokenType;
   final String accessToken;
 
-  const LoginResponse(
+  const LoginResponseSuccess(
       {required this.id,
       required this.firstname,
       required this.lastname,
@@ -30,19 +32,20 @@ class LoginResponse extends Equatable {
       required this.tokenType,
       required this.accessToken});
 
-  factory LoginResponse.fromJson(Map<String, dynamic> json) {
-    return LoginResponse(
-        id: json['id'],
-        firstname: json['firstname'],
-        lastname: json['lastname'],
-        email: json['email'],
-        photo: json['photo'],
-        phone: json['phone'],
-        role: json['role'],
-        status: json['status'],
-        isNotification: json['is_notification'],
-        tokenType: json['token_type'],
-        accessToken: json['access_token']);
+  factory LoginResponseSuccess.fromJson(Map<String, dynamic> json) {
+    final data = json['response'];
+    return LoginResponseSuccess(
+        id: data['id'],
+        firstname: data['firstname'],
+        lastname: data['lastname'],
+        email: data['email'],
+        photo: data['photo'],
+        phone: data['phone'],
+        role: data['role'],
+        status: data['status'],
+        isNotification: data['is_notification'],
+        tokenType: data['token_type'],
+        accessToken: data['access_token']);
   }
 
   Map<String, dynamic> toJson() {
@@ -79,4 +82,30 @@ class LoginResponse extends Equatable {
         tokenType,
         accessToken,
       ];
+}
+
+class LoginResponseFailed extends Equatable implements LoginResponse {
+  final int errorNumber;
+  final String message;
+
+  const LoginResponseFailed(this.errorNumber, this.message);
+
+  factory LoginResponseFailed.fromJson(Map<String, dynamic> json) {
+    final data = json['error'];
+    return LoginResponseFailed(
+      data['code'],
+      data['message'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    final data = <String, dynamic>{};
+    data['code'] = errorNumber;
+    data['message'] = message;
+
+    return data;
+  }
+
+  @override
+  List<Object> get props => [errorNumber, message];
 }

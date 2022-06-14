@@ -2,10 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:minimal/app/data/user_data/user_secure_storage/user_secure_storage.dart';
+import 'package:minimal/app/domain/user_domain/entities/user.dart';
 
 import 'package:minimal/di/get_it.dart';
 
-import '../../../domain/user_domain/entities/user.dart';
 import 'exceptions/secure_storage_exceptions.dart';
 
 class UserSecureStorageImpl extends UserSecureStorage {

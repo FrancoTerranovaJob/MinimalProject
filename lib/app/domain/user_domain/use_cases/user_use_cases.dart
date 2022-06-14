@@ -13,3 +13,15 @@ class LoginUseCase {
     }
   }
 }
+
+class IsLoggedUseCase {
+  final userRepository = services.get<UserRepository>();
+
+  Future<bool> call() async {
+    try {
+      return await userRepository.isLogged();
+    } catch (e) {
+      rethrow;
+    }
+  }
+}

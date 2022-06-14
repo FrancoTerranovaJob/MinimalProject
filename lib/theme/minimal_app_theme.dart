@@ -36,13 +36,17 @@ class MinimalAppTheme {
               secondary: const Color(0xFF0D1111),
               surface: const Color(0xFF434545),
             ),
-        inputDecorationTheme: const InputDecorationTheme(
-          focusedBorder: UnderlineInputBorder(
+        inputDecorationTheme: InputDecorationTheme(
+          focusedBorder: const UnderlineInputBorder(
               borderSide: BorderSide(color: Color(0xFF0D1111))),
-          enabledBorder: UnderlineInputBorder(
+          enabledBorder: const UnderlineInputBorder(
               borderSide: BorderSide(color: Color(0xFFC4C4C4))),
-          errorBorder: UnderlineInputBorder(
+          errorBorder: const UnderlineInputBorder(
               borderSide: BorderSide(color: Color(0xFFFB3A3A))),
+          hintStyle: GoogleFonts.dmSans(
+              fontWeight: FontWeight.w400,
+              fontSize: 16,
+              color: const Color(0xFF0D1111)),
         ));
   }
 }

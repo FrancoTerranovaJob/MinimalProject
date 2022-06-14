@@ -1,9 +1,9 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:minimal/app/data/user_data/user_secure_storage/exceptions/secure_storage_exceptions.dart';
-import 'package:minimal/app/data/user_data/user_secure_storage/user_secure_storage.dart';
 import 'package:minimal/app/data/user_data/user_secure_storage/user_secure_storage_impl.dart';
 import 'package:minimal/di/get_it.dart';
 import 'package:mockito/annotations.dart';
@@ -43,7 +43,7 @@ void main() {
       await userStorage.getSession();
     } catch (e) {
       expect(e, isInstanceOf<SessionRetrieveException>());
-      print(e.toString());
+      log(e.toString());
     }
   });
 }

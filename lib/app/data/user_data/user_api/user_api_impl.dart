@@ -14,7 +14,11 @@ class UserApiImpl extends UserApi {
     try {
       final response =
           await http.post('$userPath/login', data: loginRequest.toJson());
-      return LoginResponse.fromJson(response.data);
+      final Map<String, dynamic> loginResponseJson = response.data;
+      if (loginResponseJson['success']) {
+        return LoginResponseSuccess.fromJson(loginResponseJson);
+      }
+      return LoginResponseFailed.fromJson(loginResponseJson);
     } on DioError catch (e) {
       throw _handleDioError(e);
     } catch (e) {

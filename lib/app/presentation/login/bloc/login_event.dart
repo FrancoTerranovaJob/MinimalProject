@@ -26,3 +26,13 @@ class LoginButtonPressedEvent extends LoginEvent {
   @override
   List<Object> get props => [];
 }
+
+class ShowEmailEvent extends LoginEvent {
+  @override
+  List<Object> get props => [];
+}
+
+class ShowPasswordEvent extends LoginEvent {
+  @override
+  List<Object> get props => [];
+}
