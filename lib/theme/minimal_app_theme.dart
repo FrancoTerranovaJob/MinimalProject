@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 class MinimalAppTheme {
   static getTheme(BuildContext context) {
-    return Theme.of(context).copyWith(
+    return ThemeData(
         brightness: Brightness.light,
         textTheme: Theme.of(context).textTheme.copyWith(
               headline1: GoogleFonts.dmSans(
@@ -35,6 +35,14 @@ class MinimalAppTheme {
               primary: const Color(0xFFFFFFFF),
               secondary: const Color(0xFF0D1111),
               surface: const Color(0xFF434545),
-            ));
+            ),
+        inputDecorationTheme: const InputDecorationTheme(
+          focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: Color(0xFF0D1111))),
+          enabledBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: Color(0xFFC4C4C4))),
+          errorBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: Color(0xFFFB3A3A))),
+        ));
   }
 }

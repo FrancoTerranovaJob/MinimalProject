@@ -11,5 +11,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   void _emitLoginStatus(HomeEvent event, Emitter emit) async {
     emit(LoadingState(loginStatus: state.loginStatus));
+    emit(AppStatus(loginStatus: LoginStatus.notLogged));
   }
 }

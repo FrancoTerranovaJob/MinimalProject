@@ -16,7 +16,7 @@ class InitialState extends HomeState {
 }
 
 class LoadingState extends HomeState {
-  const LoadingState({required super.loginStatus});
+  const LoadingState({super.loginStatus = LoginStatus.notLogged});
 }
 
 class AppStatus extends HomeState {

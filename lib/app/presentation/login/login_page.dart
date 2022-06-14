@@ -9,14 +9,13 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      lazy: false,
-      create: (context) => LoginBloc(),
-      child: ListView(
-        children: const [
-          Expanded(child: Text('Title')),
-          Expanded(flex: 3, child: LoginForm())
-        ],
-      ),
-    );
+        lazy: false,
+        create: (context) => LoginBloc(),
+        child: Column(
+          children: [
+            Expanded(child: Center(child: Text('Minimal'))),
+            Expanded(flex: 2, child: LoginForm())
+          ],
+        ));
   }
 }
