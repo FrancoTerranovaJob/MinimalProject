@@ -1,8 +1,6 @@
-import 'dart:async';
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:minimal/app/domain/user_domain/entities/user.dart';
+import 'package:minimal/app/presentation/clients/client_page/bloc/client_bloc.dart';
 
 part 'client_event.dart';
 part 'client_state.dart';

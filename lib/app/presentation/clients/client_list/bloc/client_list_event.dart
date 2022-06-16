@@ -1,0 +1,25 @@
+part of 'client_list_bloc.dart';
+
+abstract class ClientListEvent extends Equatable {
+  const ClientListEvent();
+}
+
+class AddCachedImage extends ClientListEvent {
+  final Uint8List image;
+  final int clientId;
+
+  AddCachedImage({required this.image, required this.clientId});
+
+  @override
+  List<Object> get props => [image, clientId];
+}
+
+class GetClientsEvent extends ClientListEvent {
+  @override
+  List<Object> get props => [];
+}
+
+class SearchClientEvent extends ClientListEvent {
+  @override
+  List<Object> get props => [];
+}

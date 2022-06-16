@@ -1,6 +1,9 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:minimal/app/presentation/client_list/client_page.dart';
+import 'package:minimal/app/domain/client_domain/entities/client.dart';
+import 'package:minimal/app/presentation/clients/client_list/client_card.dart';
+import 'package:minimal/app/presentation/clients/client_page/client_page.dart';
 import 'package:minimal/app/presentation/home/bloc/home_bloc.dart';
 import 'package:minimal/app/presentation/login/login_page.dart';
 

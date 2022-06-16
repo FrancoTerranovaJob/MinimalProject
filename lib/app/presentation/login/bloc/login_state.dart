@@ -27,11 +27,12 @@ abstract class LoginState extends Equatable {
 }
 
 class LoginInitial extends LoginState {
-  const LoginInitial(
-      {super.login = const Login(email: '', password: ''),
-      super.enableButton = false,
-      super.showPassword = false,
-      super.showEmail = true});
+  const LoginInitial()
+      : super(
+            login: const Login(email: '', password: ''),
+            enableButton: false,
+            showPassword: false,
+            showEmail: true);
 }
 
 class AddingLoginCredentialsState extends LoginState {
