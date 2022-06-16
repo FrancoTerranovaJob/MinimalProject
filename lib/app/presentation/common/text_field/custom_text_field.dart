@@ -2,24 +2,25 @@ import 'package:flutter/material.dart';
 
 class CustomTextField extends StatelessWidget {
   final TextEditingController textEditingController;
-  final String text;
+
   final String? errorText;
   final bool hideText;
   final Widget? suffixIcon;
   final TextInputType inputType;
   final String hintText;
+  final Color? hintColor;
   final Function(String text) onChanged;
 
   const CustomTextField(
       {Key? key,
       required this.textEditingController,
-      required this.text,
       required this.onChanged,
       required this.hideText,
       this.inputType = TextInputType.text,
       this.suffixIcon,
       this.errorText,
-      this.hintText = ''})
+      this.hintText = '',
+      this.hintColor})
       : super(key: key);
 
   @override
@@ -32,7 +33,13 @@ class CustomTextField extends StatelessWidget {
       style: Theme.of(context).textTheme.subtitle1,
       cursorColor: Theme.of(context).colorScheme.secondary,
       decoration: InputDecoration(
-          errorText: errorText, suffixIcon: suffixIcon, hintText: hintText),
+          errorText: errorText,
+          suffixIcon: suffixIcon,
+          hintText: hintText,
+          hintStyle: Theme.of(context)
+              .textTheme
+              .subtitle2!
+              .copyWith(color: hintColor)),
     );
   }
 }

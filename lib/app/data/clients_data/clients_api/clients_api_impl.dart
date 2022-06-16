@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:minimal/app/data/clients_data/clients_api/clients_api.dart';
-import 'package:minimal/app/data/clients_data/clients_api/clients_api_impl.dart';
 import 'package:minimal/app/data/clients_data/clients_api/exceptions/client_api_exceptions.dart';
 import 'package:minimal/app/data/clients_data/clients_api/request/create_client_request.dart';
 import 'package:minimal/app/data/clients_data/clients_api/request/post_client_request.dart';
@@ -81,8 +80,8 @@ class ClientsApiImpl extends ClientsApi {
   Future<Map<String, String>> _getAuthorizationHeader() async {
     final session = await secureStorage.getSession();
     final sessionToken = session!.accessToken;
-    final sessionTokenType = session.tokenType;
-    return {'Authorization': '$sessionTokenType $sessionToken'};
+
+    return {'Authorization': 'Bearer $sessionToken'};
   }
 
   DioException _handleDioError(DioError error) {

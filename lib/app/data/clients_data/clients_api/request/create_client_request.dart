@@ -8,7 +8,7 @@ class CreateClientRequest extends Equatable {
   final String photo;
   final String caption;
 
-  CreateClientRequest(
+  const CreateClientRequest(
       {required this.firstname,
       required this.lastname,
       required this.email,

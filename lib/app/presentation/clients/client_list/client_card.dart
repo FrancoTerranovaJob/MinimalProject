@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -58,7 +57,7 @@ class ClientCard extends StatelessWidget {
               )
             ],
           ),
-          IconButton(onPressed: () {}, icon: Icon(Icons.more_vert))
+          IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert))
         ],
       ),
     );

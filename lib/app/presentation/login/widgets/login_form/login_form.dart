@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:minimal/app/presentation/home/bloc/home_bloc.dart';
 import 'package:minimal/app/presentation/login/bloc/login_bloc.dart';
-import 'package:minimal/app/presentation/login/widgets/loading_progress/loading_progress.dart';
+
 import 'package:minimal/app/presentation/login/widgets/login_form/email_field.dart';
 
 import 'package:minimal/app/presentation/login/widgets/login_form/login_button.dart';

@@ -1,6 +1,3 @@
-import 'dart:io';
-import 'dart:typed_data';
-
 import 'package:file_picker/file_picker.dart';
 import 'package:minimal/app/data/files_picker/files_picker.dart';
 import 'package:minimal/app/data/files_picker/response/read_jpg_response.dart';

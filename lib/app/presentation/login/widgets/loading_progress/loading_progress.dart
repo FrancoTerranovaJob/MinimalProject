@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:lottie/lottie.dart';
+
 import 'package:minimal/app/presentation/common/progress/load_progress.dart';
 import 'package:minimal/app/presentation/login/bloc/login_bloc.dart';
 

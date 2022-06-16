@@ -29,9 +29,10 @@ void setupDI() {
 
   // http client
   services.registerSingleton<Dio>(Dio(BaseOptions(
-    baseUrl: 'https://agency-coda.uc.r.appspot.com',
-  ))
-    ..interceptors.add(PrettyDioLogger()));
+      baseUrl: 'https://agency-coda.uc.r.appspot.com',
+      connectTimeout: 5000,
+      sendTimeout: 5000))
+    ..interceptors.add(PrettyDioLogger(requestHeader: true)));
   services.registerSingleton<SecureStorage>(SecureStorageImpl());
   services.registerLazySingleton<FilesPicker>(() => FilesPickerImpl());
 
@@ -48,4 +49,6 @@ void setupDI() {
       .registerLazySingleton<IsValidLoginUseCase>(() => IsValidLoginUseCase());
 
   services.registerLazySingleton<GetClientsUseCase>(() => GetClientsUseCase());
+  services.registerLazySingleton<SearchClientsUseCase>(
+      () => SearchClientsUseCase());
 }

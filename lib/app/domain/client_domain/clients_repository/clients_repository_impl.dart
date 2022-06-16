@@ -67,7 +67,6 @@ class ClientsRepositoryImpl extends ClientsRepository {
     return ClientsList(
         clients: newClientList,
         nextPage: response.nextPage,
-        temporalClientList: mappedClients,
         currentPage: response.current);
   }
 }

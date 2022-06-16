@@ -9,7 +9,7 @@ class UpdateClientRequest extends Equatable {
   final String photo;
   final String caption;
 
-  UpdateClientRequest(
+  const UpdateClientRequest(
       {required this.id,
       required this.firstname,
       required this.lastname,

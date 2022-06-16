@@ -7,7 +7,7 @@ class EmailField extends StatelessWidget {
   final Function(String text) onChange;
   final Function() onShowPressed;
   final TextEditingController textEditingController;
-  EmailField(
+  const EmailField(
       {Key? key,
       required this.onChange,
       required this.onShowPressed,
@@ -24,7 +24,6 @@ class EmailField extends StatelessWidget {
               const EdgeInsets.only(top: 8.0, bottom: 8.0, left: 30, right: 30),
           child: CustomTextField(
             textEditingController: textEditingController,
-            text: state.login.email,
             onChanged: onChange,
             hideText: !state.showEmail,
             inputType: TextInputType.emailAddress,

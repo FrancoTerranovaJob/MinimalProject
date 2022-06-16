@@ -26,7 +26,6 @@ class PasswordField extends StatelessWidget {
               const EdgeInsets.only(top: 8.0, bottom: 8.0, left: 30, right: 30),
           child: CustomTextField(
               textEditingController: textEditingController,
-              text: state.login.password,
               onChanged: (text) {
                 onChange(text);
               },

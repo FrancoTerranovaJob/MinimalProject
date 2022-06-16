@@ -3,8 +3,7 @@ import 'dart:developer';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:minimal/app/data/user_data/secure_storage/exceptions/secure_storage_exceptions.dart';
-import 'package:minimal/app/data/user_data/secure_storage/secure_storage_impl.dart';
+
 import 'package:minimal/di/get_it.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
