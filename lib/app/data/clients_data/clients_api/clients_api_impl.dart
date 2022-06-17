@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:minimal/app/data/clients_data/clients_api/clients_api.dart';
 import 'package:minimal/app/data/clients_data/clients_api/exceptions/client_api_exceptions.dart';
@@ -35,8 +37,11 @@ class ClientsApiImpl extends ClientsApi {
   Future<ClientResponse> addClient(CreateClientRequest clientRequest) async {
     try {
       http.options.headers.addAll(await _getAuthorizationHeader());
-      final response =
-          await http.post('$clientPath/save', data: clientRequest.toJson());
+
+      final response = await http.post(
+        '$clientPath/save',
+        data: clientRequest.toJson(),
+      );
       final clientData = response.data;
       return ClientResponse.fromJson(clientData['response']);
     } on DioError catch (e) {
@@ -81,7 +86,11 @@ class ClientsApiImpl extends ClientsApi {
     final session = await secureStorage.getSession();
     final sessionToken = session!.accessToken;
 
-    return {'Authorization': 'Bearer $sessionToken'};
+    return {
+      'Content-Type': 'application/json',
+      'Accept': "application/json",
+      'Authorization': 'Bearer $sessionToken'
+    };
   }
 
   DioException _handleDioError(DioError error) {

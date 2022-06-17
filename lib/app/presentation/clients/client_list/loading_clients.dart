@@ -11,7 +11,7 @@ class LoadingClients extends StatelessWidget {
     return BlocBuilder<ClientListBloc, ClientListState>(
       builder: (context, state) {
         return Visibility(
-          visible: state is ClientsLoadingState,
+          visible: state is LoadingMoreClientsState,
           child: const LoadProgress(
             opacity: 0,
           ),

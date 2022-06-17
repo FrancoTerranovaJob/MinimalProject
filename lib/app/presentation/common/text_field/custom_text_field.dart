@@ -10,6 +10,7 @@ class CustomTextField extends StatelessWidget {
   final String hintText;
   final Color? hintColor;
   final Function(String text) onChanged;
+  final Function()? onTap;
 
   const CustomTextField(
       {Key? key,
@@ -20,12 +21,14 @@ class CustomTextField extends StatelessWidget {
       this.suffixIcon,
       this.errorText,
       this.hintText = '',
-      this.hintColor})
+      this.hintColor,
+      this.onTap})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      onTap: onTap,
       obscureText: hideText,
       onChanged: onChanged,
       keyboardType: inputType,

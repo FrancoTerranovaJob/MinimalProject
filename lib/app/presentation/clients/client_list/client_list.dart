@@ -9,7 +9,6 @@ import 'package:minimal/app/presentation/clients/search_client/bloc/search_clien
 import 'package:minimal/app/presentation/clients/search_client/search_client_page.dart';
 import 'package:minimal/app/presentation/common/buttons/dense_button.dart';
 import 'package:minimal/app/presentation/common/progress/load_progress.dart';
-import 'package:minimal/app/presentation/login/widgets/loading_progress/loading_progress.dart';
 
 class ClientList extends StatelessWidget {
   const ClientList({Key? key}) : super(key: key);
@@ -28,14 +27,18 @@ class ClientList extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(bottom: 80.0),
             child: BlocBuilder<ClientListBloc, ClientListState>(
-                buildWhen: (p, c) => c is! ClientsLoadingState,
+                buildWhen: (p, c) => c is! LoadingMoreClientsState,
                 builder: (context, state) {
                   final clientsList = state.clients.clients;
-
+                  if (state is ClientsLoadingState) {
+                    return const LoadProgress(
+                      opacity: 0,
+                    );
+                  }
                   return ListView.builder(
-                    itemCount: state.clients.clients.length,
+                    itemCount: clientsList.length,
                     itemBuilder: (BuildContext context, int index) {
-                      if (index + 1 == state.clients.clients.length) {
+                      if (index + 1 == clientsList.length) {
                         return Column(
                           children: [
                             ClientCard(

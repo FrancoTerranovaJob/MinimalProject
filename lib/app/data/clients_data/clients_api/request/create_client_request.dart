@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:equatable/equatable.dart';
 
 class CreateClientRequest extends Equatable {
@@ -17,14 +19,14 @@ class CreateClientRequest extends Equatable {
       required this.caption});
 
   Map<String, dynamic> toJson() {
-    final data = <String, dynamic>{};
-    data['firstname'] = firstname;
-    data['lastname'] = lastname;
-    data['email'] = email;
-    data['address'] = address;
-    data['photo'] = photo;
-    data['caption'] = caption;
-    return data;
+    return {
+      'firstname': firstname,
+      'lastname': lastname,
+      'email': email,
+      'address': address,
+      'photo': photo.isNotEmpty ? base64Encode(photo.codeUnits) : photo,
+      'caption': caption,
+    };
   }
 
   @override

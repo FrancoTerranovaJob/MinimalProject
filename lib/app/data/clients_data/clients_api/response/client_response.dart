@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:equatable/equatable.dart';
 
 class ClientResponse extends Equatable {
@@ -25,13 +27,16 @@ class ClientResponse extends Equatable {
       required this.deleted});
 
   factory ClientResponse.fromJson(Map<String, dynamic> json) {
+    final String clientPhoto = json['photo'];
     return ClientResponse(
         id: json['id'],
         firstname: json['firstname'],
         lastname: json['lastname'],
         email: json['email'],
         address: json['address'],
-        photo: json['photo'],
+        photo: clientPhoto.isNotEmpty
+            ? String.fromCharCodes(base64Decode(clientPhoto))
+            : clientPhoto,
         caption: json['caption'],
         createdAt: json['created_at'],
         updatedAt: json['updated_at'],

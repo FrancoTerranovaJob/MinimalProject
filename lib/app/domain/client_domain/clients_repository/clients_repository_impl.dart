@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:minimal/app/data/clients_data/clients_api/clients_api.dart';
+import 'package:minimal/app/data/clients_data/clients_api/request/create_client_request.dart';
 import 'package:minimal/app/data/clients_data/clients_api/request/post_client_request.dart';
 import 'package:minimal/app/data/clients_data/clients_api/response/client_response.dart';
 import 'package:minimal/app/data/clients_data/clients_api/response/post_client_response.dart';
@@ -16,7 +19,7 @@ class ClientsRepositoryImpl extends ClientsRepository {
   final filePicker = services.get<FilesPicker>();
   final api = services.get<ClientsApi>();
   @override
-  Future<Client> addClientPhoto(Client client) async {
+  Future<Client> searchClientPhoto(Client client) async {
     final ReadJpgResponse response = await filePicker.readJPG();
     if (response.jpg != null) {
       return Client(
@@ -45,6 +48,18 @@ class ClientsRepositoryImpl extends ClientsRepository {
       return _getClientsList(response, clientList);
     }
     return clientList;
+  }
+
+  @override
+  Future<bool> addNewClient(Client client) async {
+    await api.addClient(CreateClientRequest(
+        firstname: client.firstname,
+        lastname: client.lastname,
+        email: client.email,
+        address: client.address,
+        photo: client.photo,
+        caption: client.caption));
+    return true;
   }
 
   Client _mapClientResponseToClient(ClientResponse response) => Client(

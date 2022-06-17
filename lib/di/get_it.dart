@@ -51,4 +51,9 @@ void setupDI() {
   services.registerLazySingleton<GetClientsUseCase>(() => GetClientsUseCase());
   services.registerLazySingleton<SearchClientsUseCase>(
       () => SearchClientsUseCase());
+  services.registerLazySingleton<SearchClientPhotoUseCase>(
+      () => SearchClientPhotoUseCase());
+  services.registerLazySingleton<ValidateNewClientDataUseCase>(
+      () => ValidateNewClientDataUseCase());
+  services.registerLazySingleton<AddClientUseCase>(() => AddClientUseCase());
 }

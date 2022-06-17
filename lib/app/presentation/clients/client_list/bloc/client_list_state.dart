@@ -41,6 +41,13 @@ class ClientsLoadingState extends ClientListState {
   });
 }
 
+class LoadingMoreClientsState extends ClientListState {
+  const LoadingMoreClientsState({
+    required super.clients,
+    required super.cachedClientImages,
+  });
+}
+
 class SearchClientFromListState extends ClientListState {
   const SearchClientFromListState({
     required super.clients,

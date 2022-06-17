@@ -18,28 +18,52 @@ class SearchClientsUseCase {
     if (search.isEmpty) {
       return searchedClients;
     }
-    if (search.length > 3) {
-      if (search.contains('@')) {
-        for (var client in clients) {
-          var lowerCaseEmail = client.email.toLowerCase();
-          if (lowerCaseEmail.contains(lowerCaseSearch)) {
-            searchedClients.add(client);
-          }
+    if (lowerCaseSearch.contains('@')) {
+      for (var client in clients) {
+        var lowerCaseEmail = client.email.toLowerCase();
+        if (lowerCaseEmail.contains(lowerCaseSearch)) {
+          searchedClients.add(client);
         }
-      } else {
-        for (var client in clients) {
-          var lowerCaseFirstname = client.firstname.toLowerCase();
-          var lowerCaseLastname = client.lastname.toLowerCase();
-          var completeName = '$lowerCaseFirstname $lowerCaseLastname';
-          if (lowerCaseFirstname.contains(lowerCaseSearch) ||
-              lowerCaseLastname.contains(lowerCaseSearch) ||
-              completeName.contains(lowerCaseSearch)) {
-            searchedClients.add(client);
-          }
+      }
+      return searchedClients;
+    } else {
+      for (var client in clients) {
+        var lowerCaseFirstname = client.firstname.toLowerCase();
+        var lowerCaseLastname = client.lastname.toLowerCase();
+        var completeName = '$lowerCaseFirstname $lowerCaseLastname';
+        if (lowerCaseFirstname.contains(lowerCaseSearch) ||
+            lowerCaseLastname.contains(lowerCaseSearch) ||
+            completeName.contains(lowerCaseSearch)) {
+          searchedClients.add(client);
         }
       }
       return searchedClients;
     }
-    return [];
+  }
+}
+
+class ValidateNewClientDataUseCase {
+  int call(Client newClient) {
+    return newClient.firstname.isEmpty
+        ? -1
+        : newClient.lastname.isEmpty
+            ? -2
+            : newClient.email.isEmpty
+                ? -3
+                : 1;
+  }
+}
+
+class SearchClientPhotoUseCase {
+  final clientRepository = services.get<ClientsRepository>();
+  Future<Client> call(Client newClient) async {
+    return await clientRepository.searchClientPhoto(newClient);
+  }
+}
+
+class AddClientUseCase {
+  final clientRepository = services.get<ClientsRepository>();
+  Future<bool> call(Client newClient) async {
+    return await clientRepository.addNewClient(newClient);
   }
 }
