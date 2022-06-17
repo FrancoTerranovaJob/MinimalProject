@@ -63,7 +63,23 @@ class SearchClientPhotoUseCase {
 
 class AddClientUseCase {
   final clientRepository = services.get<ClientsRepository>();
-  Future<bool> call(Client newClient) async {
-    return await clientRepository.addNewClient(newClient);
+  Future<void> call(Client newClient) async {
+    try {
+      await clientRepository.addNewClient(newClient);
+    } catch (e) {
+      rethrow;
+    }
+  }
+}
+
+class SaveEditedClientUseCase {
+  final clientRepository = services.get<ClientsRepository>();
+  Future<bool> call(Client editedClient) async {
+    try {
+      await clientRepository.editClient(editedClient);
+      return true;
+    } catch (e) {
+      rethrow;
+    }
   }
 }

@@ -2,15 +2,20 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:minimal/app/domain/client_domain/entities/client.dart';
+import 'package:minimal/app/presentation/clients/client_list/widgets/client_options.dart';
 
 class ClientCard extends StatelessWidget {
   final Client client;
   final Function(Uint8List image, int id) onImageRendered;
   final Uint8List? cachedImage;
+  final Function() onEditSelected;
+  final Function() onDeleteSelected;
   const ClientCard(
       {Key? key,
       required this.client,
       required this.onImageRendered,
+      required this.onEditSelected,
+      required this.onDeleteSelected,
       this.cachedImage})
       : super(key: key);
 
@@ -29,6 +34,7 @@ class ClientCard extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: CircleAvatar(
+                  backgroundColor: Theme.of(context).colorScheme.primary,
                   radius: 35,
                   backgroundImage: _getClientImage(),
                 ),
@@ -57,7 +63,10 @@ class ClientCard extends StatelessWidget {
               )
             ],
           ),
-          IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert))
+          ClientOptions(
+              onEditSelected: onEditSelected,
+              onDeleteSelected: onDeleteSelected,
+              icon: const Icon(Icons.more_vert))
         ],
       ),
     );

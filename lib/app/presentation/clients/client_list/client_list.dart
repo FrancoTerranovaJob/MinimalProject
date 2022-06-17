@@ -2,9 +2,13 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:minimal/app/domain/client_domain/entities/client.dart';
 import 'package:minimal/app/presentation/clients/client_list/bloc/client_list_bloc.dart';
-import 'package:minimal/app/presentation/clients/client_list/client_card.dart';
-import 'package:minimal/app/presentation/clients/client_list/loading_clients.dart';
+import 'package:minimal/app/presentation/clients/client_list/widgets/client_card.dart';
+import 'package:minimal/app/presentation/clients/client_list/widgets/loading_clients.dart';
+import 'package:minimal/app/presentation/clients/edit_client/bloc/edit_client_bloc.dart';
+import 'package:minimal/app/presentation/clients/edit_client/edit_client_page.dart';
+
 import 'package:minimal/app/presentation/clients/search_client/bloc/search_client_bloc.dart';
 import 'package:minimal/app/presentation/clients/search_client/search_client_page.dart';
 import 'package:minimal/app/presentation/common/buttons/dense_button.dart';
@@ -42,29 +46,38 @@ class ClientList extends StatelessWidget {
                         return Column(
                           children: [
                             ClientCard(
-                                client: clientsList[index],
-                                cachedImage: state
-                                    .cachedClientImages[clientsList[index].id],
-                                onImageRendered:
-                                    (Uint8List image, int clientId) =>
-                                        _addClientListBlocEvent(
-                                            AddCachedImage(
-                                                image: image,
-                                                clientId: clientId),
-                                            blocList)),
+                              client: clientsList[index],
+                              cachedImage: state
+                                  .cachedClientImages[clientsList[index].id],
+                              onImageRendered:
+                                  (Uint8List image, int clientId) =>
+                                      _addClientListBlocEvent(
+                                          AddCachedImage(
+                                              image: image, clientId: clientId),
+                                          blocList),
+                              onEditSelected: () {
+                                _onEditSelected(clientsList[index], context);
+                              },
+                              onDeleteSelected: () {},
+                            ),
                             const SizedBox(height: 100, child: LoadingClients())
                           ],
                         );
                       }
                       return ClientCard(
-                          client: clientsList[index],
-                          cachedImage:
-                              state.cachedClientImages[clientsList[index].id],
-                          onImageRendered: (Uint8List image, int clientId) =>
-                              _addClientListBlocEvent(
-                                  AddCachedImage(
-                                      image: image, clientId: clientId),
-                                  blocList));
+                        client: clientsList[index],
+                        cachedImage:
+                            state.cachedClientImages[clientsList[index].id],
+                        onImageRendered: (Uint8List image, int clientId) =>
+                            _addClientListBlocEvent(
+                                AddCachedImage(
+                                    image: image, clientId: clientId),
+                                blocList),
+                        onEditSelected: () async {
+                          await _onEditSelected(clientsList[index], context);
+                        },
+                        onDeleteSelected: () {},
+                      );
                     },
                   );
                 }),
@@ -99,5 +112,23 @@ class ClientList extends StatelessWidget {
                 cachedImages: state.cachedClientImages,
               ),
             )));
+  }
+
+  Future _onEditSelected(Client client, BuildContext context) async {
+    await showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return Dialog(
+            child: BlocProvider(
+              lazy: false,
+              create: (context) =>
+                  EditClientBloc(EditClientInitial(client: client)),
+              child: EditClientPage(
+                onEditSuccess: (Client client) {},
+              ),
+            ),
+          );
+        });
   }
 }

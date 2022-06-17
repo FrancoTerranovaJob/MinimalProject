@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:equatable/equatable.dart';
@@ -5,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:minimal/app/domain/client_domain/entities/clients_list.dart';
 import 'package:minimal/app/domain/client_domain/use_cases/clients_use_cases.dart';
+import 'package:minimal/app/presentation/clients/client_list/bloc/client_list_bloc.dart';
 
 import 'package:minimal/di/get_it.dart';
 
@@ -17,6 +19,7 @@ class ClientListBloc extends Bloc<ClientListEvent, ClientListState> {
     on<AddCachedImage>(_addCachedImage);
     on<GetClientsEvent>(_getClientsEvent);
     on<SearchClientEvent>(_searchClientEvent);
+    on<RefreshClientListEvent>(_refreshClientListEvent);
   }
 
   void _addCachedImage(AddCachedImage event, Emitter<ClientListState> emit) {
@@ -62,5 +65,24 @@ class ClientListBloc extends Bloc<ClientListEvent, ClientListState> {
       clients: state.clients,
       cachedClientImages: state.cachedClientImages,
     ));
+  }
+
+  void _refreshClientListEvent(
+      RefreshClientListEvent event, Emitter<ClientListState> emit) async {
+    emit(ClientsLoadingState(
+        clients: state.clients, cachedClientImages: state.cachedClientImages));
+    final response =
+        await getClientsUseCase.call(const ClientsList(currentPage: 0));
+    if (response != state.clients) {
+      emit(ClientsDataState(
+        clients: response,
+        cachedClientImages: state.cachedClientImages,
+      ));
+    } else {
+      emit(ClientsDataState(
+        clients: state.clients,
+        cachedClientImages: state.cachedClientImages,
+      ));
+    }
   }
 }

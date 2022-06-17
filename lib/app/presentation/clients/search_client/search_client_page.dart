@@ -3,7 +3,11 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:minimal/app/domain/client_domain/entities/client.dart';
-import 'package:minimal/app/presentation/clients/client_list/client_card.dart';
+import 'package:minimal/app/presentation/clients/client_list/widgets/client_card.dart';
+
+import 'package:minimal/app/presentation/clients/edit_client/bloc/edit_client_bloc.dart';
+import 'package:minimal/app/presentation/clients/edit_client/edit_client_page.dart';
+
 import 'package:minimal/app/presentation/clients/search_client/bloc/search_client_bloc.dart';
 import 'package:minimal/app/presentation/clients/search_client/widgets/client_not_found.dart';
 import 'package:minimal/app/presentation/clients/search_client/widgets/empty_search.dart';
@@ -43,6 +47,10 @@ class SearchClientPage extends StatelessWidget {
                   client: state.temporalClientList[index],
                   cachedImage: cachedImages[clients[index].id],
                   onImageRendered: (Uint8List image, int id) {},
+                  onEditSelected: () {
+                    _onEditSelected(state.temporalClientList[index], context);
+                  },
+                  onDeleteSelected: () {},
                 );
               },
             );
@@ -50,5 +58,22 @@ class SearchClientPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future _onEditSelected(Client client, BuildContext context) async {
+    await showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return Dialog(
+            child: BlocProvider(
+              create: (context) =>
+                  EditClientBloc(EditClientInitial(client: client)),
+              child: EditClientPage(
+                onEditSuccess: (Client client) {},
+              ),
+            ),
+          );
+        });
   }
 }

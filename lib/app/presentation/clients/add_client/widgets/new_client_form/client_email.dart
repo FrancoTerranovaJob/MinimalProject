@@ -18,6 +18,7 @@ class ClientEmail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AddClientBloc, AddClientState>(
+      buildWhen: (p, c) => p.validationStatus != c.validationStatus,
       builder: (context, state) {
         return CustomTextField(
             textEditingController: textEditingController,

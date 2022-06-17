@@ -5,11 +5,13 @@ class DenseButton extends StatelessWidget {
   final String buttonText;
   final double widthButton;
   final double heightButton;
+  final bool rounded;
   const DenseButton(
       {Key? key,
       this.onPressed,
       required this.buttonText,
       this.widthButton = double.infinity,
+      this.rounded = true,
       this.heightButton = 50})
       : super(key: key);
 
@@ -29,7 +31,9 @@ class DenseButton extends StatelessWidget {
             }),
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                 RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(25.0),
+              borderRadius: rounded
+                  ? BorderRadius.circular(25.0)
+                  : BorderRadius.circular(0),
             )),
             backgroundColor: MaterialStateColor.resolveWith((states) {
               if (states.contains(MaterialState.disabled)) {

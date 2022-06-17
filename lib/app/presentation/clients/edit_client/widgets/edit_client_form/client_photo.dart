@@ -4,31 +4,32 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:minimal/app/presentation/clients/add_client/bloc/add_client_bloc.dart';
+import 'package:minimal/app/presentation/clients/edit_client/bloc/edit_client_bloc.dart';
 
 class ClientPhoto extends StatelessWidget {
   const ClientPhoto({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AddClientBloc, AddClientState>(
-      buildWhen: (p, c) => p.newClient.photo != c.newClient.photo,
+    return BlocBuilder<EditClientBloc, EditClientState>(
+      buildWhen: (p, c) => p.client.photo != c.client.photo,
       builder: (context, state) {
         return Material(
           color: Colors.transparent,
           child: InkWell(
               borderRadius: const BorderRadius.all(Radius.circular(70)),
               onTap: () {
-                BlocProvider.of<AddClientBloc>(context)
+                BlocProvider.of<EditClientBloc>(context)
                     .add(SearchClientPhotoEvent());
               },
               child: Column(
                 children: [
-                  state.newClient.photo.isEmpty
+                  state.client.photo.isEmpty
                       ? const DefaultAvatar()
-                      : SelectedAvatar(photo: state.newClient.photo),
+                      : SelectedAvatar(photo: state.client.photo),
                   Visibility(
-                    visible: state.errorType == AddClientErrorType.invalidImage,
+                    visible:
+                        state.errorType == EditClientErrorType.invalidImage,
                     child: Text('Invalid image!'),
                   )
                 ],

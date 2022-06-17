@@ -23,3 +23,8 @@ class SearchClientEvent extends ClientListEvent {
   @override
   List<Object> get props => [];
 }
+
+class RefreshClientListEvent extends ClientListEvent {
+  @override
+  List<Object> get props => [];
+}

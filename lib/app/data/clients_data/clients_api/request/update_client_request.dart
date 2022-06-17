@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:equatable/equatable.dart';
 
 class UpdateClientRequest extends Equatable {
@@ -25,7 +27,7 @@ class UpdateClientRequest extends Equatable {
     data['lastname'] = lastname;
     data['email'] = email;
     data['address'] = address;
-    data['photo'] = photo;
+    data['photo'] = photo.isNotEmpty ? base64Encode(photo.codeUnits) : photo;
     data['caption'] = caption;
     return data;
   }

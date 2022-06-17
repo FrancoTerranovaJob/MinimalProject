@@ -6,7 +6,9 @@ import 'package:minimal/app/data/clients_data/clients_api/exceptions/client_api_
 import 'package:minimal/app/data/clients_data/clients_api/request/create_client_request.dart';
 import 'package:minimal/app/data/clients_data/clients_api/request/post_client_request.dart';
 import 'package:minimal/app/data/clients_data/clients_api/request/update_client_request.dart';
+import 'package:minimal/app/data/clients_data/clients_api/response/add_client_response.dart';
 import 'package:minimal/app/data/clients_data/clients_api/response/client_response.dart';
+import 'package:minimal/app/data/clients_data/clients_api/response/edit_client_response.dart';
 import 'package:minimal/app/data/clients_data/clients_api/response/post_client_response.dart';
 import 'package:minimal/app/data/secure_storage/secure_storage.dart';
 import 'package:minimal/di/get_it.dart';
@@ -34,7 +36,7 @@ class ClientsApiImpl extends ClientsApi {
   }
 
   @override
-  Future<ClientResponse> addClient(CreateClientRequest clientRequest) async {
+  Future<AddClientResponse> addClient(CreateClientRequest clientRequest) async {
     try {
       http.options.headers.addAll(await _getAuthorizationHeader());
 
@@ -43,7 +45,10 @@ class ClientsApiImpl extends ClientsApi {
         data: clientRequest.toJson(),
       );
       final clientData = response.data;
-      return ClientResponse.fromJson(clientData['response']);
+      if (clientData['success']) {
+        return AddClientSuccessResponse.fromJson(clientData['response']);
+      }
+      return AddClientFailedResponse.fromJson(clientData['error']);
     } on DioError catch (e) {
       throw _handleDioError(e);
     } catch (e) {
@@ -67,14 +72,17 @@ class ClientsApiImpl extends ClientsApi {
   }
 
   @override
-  Future<ClientResponse> updateClient(
+  Future<EditClientResponse> updateClient(
       UpdateClientRequest updateClientRequest) async {
     try {
       http.options.headers.addAll(await _getAuthorizationHeader());
       final response = await http.post('$clientPath/save',
           data: updateClientRequest.toJson());
       final updatedUser = response.data;
-      return ClientResponse.fromJson(updatedUser['response']);
+      if (updatedUser['success']) {
+        return EditClientResponseSuccess.fromJson(updatedUser['response']);
+      }
+      return EditClientResponseFailed.fromJson(updatedUser['error']);
     } on DioError catch (e) {
       throw _handleDioError(e);
     } catch (e) {
@@ -86,11 +94,7 @@ class ClientsApiImpl extends ClientsApi {
     final session = await secureStorage.getSession();
     final sessionToken = session!.accessToken;
 
-    return {
-      'Content-Type': 'application/json',
-      'Accept': "application/json",
-      'Authorization': 'Bearer $sessionToken'
-    };
+    return {'Authorization': 'Bearer $sessionToken'};
   }
 
   DioException _handleDioError(DioError error) {

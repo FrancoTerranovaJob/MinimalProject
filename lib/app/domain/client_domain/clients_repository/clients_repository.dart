@@ -5,4 +5,5 @@ abstract class ClientsRepository {
   Future<Client> searchClientPhoto(Client client);
   Future<ClientsList> getClients(ClientsList clientList);
   Future<bool> addNewClient(Client client);
+  Future<bool> editClient(Client client);
 }
