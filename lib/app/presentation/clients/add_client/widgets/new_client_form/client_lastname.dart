@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:minimal/app/presentation/common/text_field/custom_text_field.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:minimal/app/presentation/clients/add_client/bloc/add_client_bloc.dart';
-import 'package:minimal/app/presentation/common/text_field/custom_text_field.dart';
 
 class ClientLastname extends StatelessWidget {
   final TextEditingController textEditingController;

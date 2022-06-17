@@ -10,23 +10,18 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: SafeArea(
-        child: BlocBuilder<HomeBloc, HomeState>(
-          builder: (context, state) {
-            if (state is AppStatus) {
-              if (state.loginStatus == LoginStatus.logged) {
-                return _loggedPage();
-              }
-              return _notLoggedPage();
-            }
+    return BlocBuilder<HomeBloc, HomeState>(
+      builder: (context, state) {
+        if (state is AppStatus) {
+          if (state.loginStatus == LoginStatus.logged) {
+            return _loggedPage();
+          }
+          return _notLoggedPage();
+        }
 
-            if (state is ErrorState) {}
-            return _loadingPage();
-          },
-        ),
-      ),
+        if (state is ErrorState) {}
+        return _loadingPage();
+      },
     );
   }
 

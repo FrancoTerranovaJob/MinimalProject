@@ -23,30 +23,26 @@ class LoginForm extends StatelessWidget {
       listener: (context, state) {
         homeBloc.add(UserLoggedEvent());
       },
-      child: Stack(
+      child: Column(
         children: [
-          Column(
-            children: [
-              EmailField(
-                textEditingController: emailController,
-                onChange: (text) =>
-                    _addLoginBlocEvent(EmailChangedEvent(text), loginBloc),
-                onShowPressed: () =>
-                    _addLoginBlocEvent(ShowEmailEvent(), loginBloc),
-              ),
-              PasswordField(
-                textEditingController: passwordController,
-                onChange: (text) =>
-                    _addLoginBlocEvent(PasswordChangedEvent(text), loginBloc),
-                onShowPressed: () =>
-                    _addLoginBlocEvent(ShowPasswordEvent(), loginBloc),
-              ),
-              LoginButton(onPressed: () {
-                FocusScope.of(context).unfocus();
-                _addLoginBlocEvent(LoginButtonPressedEvent(), loginBloc);
-              }),
-            ],
+          EmailField(
+            textEditingController: emailController,
+            onChange: (text) =>
+                _addLoginBlocEvent(EmailChangedEvent(text), loginBloc),
+            onShowPressed: () =>
+                _addLoginBlocEvent(ShowEmailEvent(), loginBloc),
           ),
+          PasswordField(
+            textEditingController: passwordController,
+            onChange: (text) =>
+                _addLoginBlocEvent(PasswordChangedEvent(text), loginBloc),
+            onShowPressed: () =>
+                _addLoginBlocEvent(ShowPasswordEvent(), loginBloc),
+          ),
+          LoginButton(onPressed: () {
+            FocusScope.of(context).unfocus();
+            _addLoginBlocEvent(LoginButtonPressedEvent(), loginBloc);
+          }),
         ],
       ),
     );

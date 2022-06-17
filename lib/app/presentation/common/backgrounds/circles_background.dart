@@ -8,13 +8,13 @@ class CirclesBackground extends StatelessWidget {
     return Stack(children: [
       Align(
           alignment: Alignment.topRight,
-          child: Image.asset('assets/spread_0.png')),
+          child: Image.asset('assets/circle_0.png')),
       Align(
           alignment: Alignment.centerLeft,
-          child: Image.asset('assets/spread_1.png')),
+          child: Image.asset('assets/circle_1.png')),
       Align(
           alignment: Alignment.bottomCenter,
-          child: Image.asset('assets/spread_2.png'))
+          child: Image.asset('assets/circle_2.png'))
     ]);
   }
 }

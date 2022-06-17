@@ -69,9 +69,9 @@ flutter:
   uses-material-design: true
   assets:
     - assets/
-    - assets/spread_0.png
-    - assets/spread_1.png
-    - assets/spread_2.png
+    - assets/circle_0.png
+    - assets/circle_1.png
+    - assets/circle_2.png
     - assets/minimal.png
     - assets/progress.json
   # To add assets to your application, add an assets section, like this:

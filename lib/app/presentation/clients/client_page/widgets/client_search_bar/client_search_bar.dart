@@ -8,16 +8,24 @@ class ClientSearchBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(25),
+          side: const BorderSide(width: 1)),
       child: SizedBox(
-        width: 300,
-        height: 50,
-        child: ListTile(
-          onTap: () {
-            BlocProvider.of<ClientListBloc>(context).add(SearchClientEvent());
-          },
-          leading: const Icon(Icons.search),
-          title: const Text('Buscar'),
+        height: 55,
+        child: Center(
+          child: ListTile(
+            onTap: () {
+              BlocProvider.of<ClientListBloc>(context).add(SearchClientEvent());
+            },
+            leading: const Icon(Icons.search),
+            title: Text(
+              'Search...',
+              style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                  color:
+                      Theme.of(context).colorScheme.surface.withOpacity(0.5)),
+            ),
+          ),
         ),
       ),
     );

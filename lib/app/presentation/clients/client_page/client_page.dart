@@ -16,41 +16,46 @@ class ClientPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        const ClientPageBackground(),
-        BlocProvider(
-          create: (context) =>
-              ClientListBloc(ClientListInitial())..add(GetClientsEvent()),
-          lazy: false,
-          child: Column(
-            children: [
-              const Flexible(
-                  flex: 2,
-                  child: Center(
-                      child: AppLogo(
-                    width: 100,
-                    height: 100,
-                  ))),
-              const Flexible(child: ClientPageHeader()),
-              Expanded(
-                  flex: 2,
-                  child: Row(
-                    children: const [
-                      Flexible(child: ClientSearchBar()),
-                      Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: AddNewCLientButton())
-                    ],
-                  )),
-              const Expanded(
-                flex: 10,
-                child: ClientList(),
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: SafeArea(
+        child: Stack(
+          children: [
+            const ClientPageBackground(),
+            BlocProvider(
+              create: (context) =>
+                  ClientListBloc(ClientListInitial())..add(GetClientsEvent()),
+              lazy: false,
+              child: Column(
+                children: [
+                  const Flexible(
+                      flex: 2,
+                      child: Center(
+                          child: AppLogo(
+                        width: 100,
+                        height: 100,
+                      ))),
+                  const Flexible(child: ClientPageHeader()),
+                  Expanded(
+                      flex: 2,
+                      child: Row(
+                        children: const [
+                          Flexible(child: ClientSearchBar()),
+                          Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: AddNewCLientButton())
+                        ],
+                      )),
+                  const Expanded(
+                    flex: 10,
+                    child: ClientList(),
+                  ),
+                ],
               ),
-            ],
-          ),
-        )
-      ],
+            )
+          ],
+        ),
+      ),
     );
   }
 }

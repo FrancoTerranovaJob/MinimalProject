@@ -11,29 +11,33 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-        lazy: false,
-        create: (context) => LoginBloc(const LoginInitial()),
-        child: Stack(
-          children: [
-            const LoginBackground(),
-            CustomScrollView(
-              slivers: [
-                SliverFillRemaining(
-                  hasScrollBody: false,
-                  child: Column(
-                    children: [
-                      const Expanded(flex: 2, child: AppLogo()),
-                      const Flexible(child: LoginTitle()),
-                      Expanded(flex: 2, child: LoginForm())
-                    ],
-                  ),
+    return Scaffold(
+      body: SafeArea(
+        child: BlocProvider(
+            lazy: false,
+            create: (context) => LoginBloc(const LoginInitial()),
+            child: Stack(
+              children: [
+                const LoginBackground(),
+                CustomScrollView(
+                  slivers: [
+                    SliverFillRemaining(
+                      hasScrollBody: false,
+                      child: Column(
+                        children: [
+                          const Expanded(flex: 2, child: AppLogo()),
+                          const Flexible(child: LoginTitle()),
+                          Expanded(flex: 2, child: LoginForm())
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
+                const LoadingProgress()
               ],
-            ),
-            const LoadingProgress()
-          ],
-        ));
+            )),
+      ),
+    );
   }
 }
 
