@@ -1,13 +1,9 @@
-import 'dart:async';
 import 'dart:typed_data';
-
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:minimal/app/domain/client_domain/entities/client.dart';
-
 import 'package:minimal/app/domain/client_domain/entities/clients_list.dart';
 import 'package:minimal/app/domain/client_domain/use_cases/clients_use_cases.dart';
-
 import 'package:minimal/di/get_it.dart';
 
 part 'client_list_event.dart';

@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:minimal/app/data/clients_data/clients_api/clients_api.dart';
 import 'package:minimal/app/data/clients_data/clients_api/exceptions/client_api_exceptions.dart';
@@ -7,7 +5,6 @@ import 'package:minimal/app/data/clients_data/clients_api/request/create_client_
 import 'package:minimal/app/data/clients_data/clients_api/request/post_client_request.dart';
 import 'package:minimal/app/data/clients_data/clients_api/request/update_client_request.dart';
 import 'package:minimal/app/data/clients_data/clients_api/response/add_client_response.dart';
-
 import 'package:minimal/app/data/clients_data/clients_api/response/edit_client_response.dart';
 import 'package:minimal/app/data/clients_data/clients_api/response/post_client_response.dart';
 import 'package:minimal/app/data/secure_storage/secure_storage.dart';

@@ -1,18 +1,24 @@
+import 'package:equatable/equatable.dart';
 import 'package:minimal/app/data/clients_data/clients_api/response/client_response.dart';
 
 abstract class EditClientResponse {}
 
-class EditClientResponseSuccess implements EditClientResponse {
+class EditClientResponseSuccess extends Equatable
+    implements EditClientResponse {
   final ClientResponse clientResponse;
+
   factory EditClientResponseSuccess.fromJson(Map<String, dynamic> json) {
     return EditClientResponseSuccess(
         clientResponse: ClientResponse.fromJson(json));
   }
 
-  EditClientResponseSuccess({required this.clientResponse});
+  const EditClientResponseSuccess({required this.clientResponse});
+
+  @override
+  List<Object> get props => [clientResponse];
 }
 
-class EditClientResponseFailed implements EditClientResponse {
+class EditClientResponseFailed extends Equatable implements EditClientResponse {
   final int errorNumber;
   final String message;
 

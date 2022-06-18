@@ -25,7 +25,7 @@ class ClientOptions extends StatelessWidget {
           }
         },
         itemBuilder: (BuildContext context) => <PopupMenuEntry<int>>[
-              PopupMenuItem<int>(
+              const PopupMenuItem<int>(
                 padding: EdgeInsets.all(0),
                 value: 0,
                 child: DenseButton(

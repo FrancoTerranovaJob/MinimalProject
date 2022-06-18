@@ -6,7 +6,7 @@ abstract class AddClientResponse {}
 class AddClientSuccessResponse extends Equatable implements AddClientResponse {
   final ClientResponse clientResponse;
 
-  AddClientSuccessResponse(this.clientResponse);
+  const AddClientSuccessResponse(this.clientResponse);
 
   factory AddClientSuccessResponse.fromJson(Map<String, dynamic> json) {
     return AddClientSuccessResponse(ClientResponse.fromJson(json));

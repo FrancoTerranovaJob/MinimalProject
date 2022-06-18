@@ -29,7 +29,7 @@ class ClientPhoto extends StatelessWidget {
                       : SelectedAvatar(photo: state.newClient.photo),
                   Visibility(
                     visible: state.errorType == AddClientErrorType.invalidImage,
-                    child: Text('Invalid image!'),
+                    child: const Text('Invalid image!'),
                   )
                 ],
               )),

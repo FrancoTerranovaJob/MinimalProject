@@ -30,7 +30,7 @@ class ClientPhoto extends StatelessWidget {
                   Visibility(
                     visible:
                         state.errorType == EditClientErrorType.invalidImage,
-                    child: Text('Invalid image!'),
+                    child: const Text('Invalid image!'),
                   )
                 ],
               )),

@@ -51,6 +51,6 @@ class MinimalAppTheme {
               fontSize: 16,
               color: const Color(0xFF0D1111)),
         ),
-        appBarTheme: AppBarTheme());
+        appBarTheme: const AppBarTheme());
   }
 }

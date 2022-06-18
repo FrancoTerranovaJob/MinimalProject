@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:minimal/app/common/exceptions/api_exception.dart';
 import 'package:minimal/app/data/clients_data/clients_api/clients_api.dart';
 import 'package:minimal/app/data/clients_data/clients_api/exceptions/client_api_exceptions.dart';
@@ -10,7 +8,6 @@ import 'package:minimal/app/data/clients_data/clients_api/response/add_client_re
 import 'package:minimal/app/data/clients_data/clients_api/response/client_response.dart';
 import 'package:minimal/app/data/clients_data/clients_api/response/edit_client_response.dart';
 import 'package:minimal/app/data/clients_data/clients_api/response/post_client_response.dart';
-
 import 'package:minimal/app/data/files_picker/files_picker.dart';
 import 'package:minimal/app/data/files_picker/response/read_jpg_response.dart';
 import 'package:minimal/app/domain/client_domain/clients_repository/clients_repository.dart';

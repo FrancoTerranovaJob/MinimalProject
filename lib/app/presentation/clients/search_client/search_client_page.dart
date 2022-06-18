@@ -1,15 +1,8 @@
 import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:minimal/app/domain/client_domain/entities/client.dart';
-import 'package:minimal/app/presentation/clients/client_list/bloc/client_list_bloc.dart'
-    as cl_bloc;
 import 'package:minimal/app/presentation/clients/client_list/widgets/client_card.dart';
-
-import 'package:minimal/app/presentation/clients/edit_client/bloc/edit_client_bloc.dart';
-import 'package:minimal/app/presentation/clients/edit_client/edit_client_page.dart';
-
 import 'package:minimal/app/presentation/clients/search_client/bloc/search_client_bloc.dart';
 import 'package:minimal/app/presentation/clients/search_client/widgets/client_not_found.dart';
 import 'package:minimal/app/presentation/clients/search_client/widgets/empty_search.dart';

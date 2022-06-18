@@ -17,7 +17,7 @@ class OnCreateNewUserEvent extends AddClientEvent {
 class FirstNameChangedEvent extends AddClientEvent {
   final String firstname;
 
-  FirstNameChangedEvent(this.firstname);
+  const FirstNameChangedEvent(this.firstname);
   @override
   List<Object> get props => [firstname];
 }
@@ -25,7 +25,7 @@ class FirstNameChangedEvent extends AddClientEvent {
 class LastNameChangedEvent extends AddClientEvent {
   final String lastname;
 
-  LastNameChangedEvent(this.lastname);
+  const LastNameChangedEvent(this.lastname);
   @override
   List<Object> get props => [lastname];
 }
@@ -33,7 +33,7 @@ class LastNameChangedEvent extends AddClientEvent {
 class EmailChangedEvent extends AddClientEvent {
   final String email;
 
-  EmailChangedEvent(this.email);
+  const EmailChangedEvent(this.email);
   @override
   List<Object> get props => [email];
 }

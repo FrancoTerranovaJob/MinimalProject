@@ -1,13 +1,9 @@
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:minimal/app/presentation/clients/add_client/bloc/add_client_bloc.dart';
 import 'package:minimal/app/presentation/clients/add_client/widgets/new_client_form/client_email.dart';
 import 'package:minimal/app/presentation/clients/add_client/widgets/new_client_form/client_lastname.dart';
 import 'package:minimal/app/presentation/clients/add_client/widgets/new_client_form/client_name.dart';
-import 'package:minimal/app/presentation/common/buttons/dense_button.dart';
-import 'package:minimal/app/presentation/common/buttons/transparent_button.dart';
 
 class NewClientForm extends StatelessWidget {
   final TextEditingController emailController;

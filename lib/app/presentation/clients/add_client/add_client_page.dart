@@ -1,8 +1,5 @@
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:minimal/app/presentation/clients/add_client/bloc/add_client_bloc.dart';
 import 'package:minimal/app/presentation/clients/add_client/widgets/new_client_form/client_photo.dart';
 import 'package:minimal/app/presentation/clients/add_client/widgets/new_client_form/new_client_form.dart';

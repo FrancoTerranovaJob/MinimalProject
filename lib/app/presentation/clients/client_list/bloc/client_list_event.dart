@@ -32,7 +32,7 @@ class RefreshClientListEvent extends ClientListEvent {
 class RefreshClientEvent extends ClientListEvent {
   final Client client;
 
-  RefreshClientEvent({required this.client});
+  const RefreshClientEvent({required this.client});
   @override
   List<Object> get props => [client];
 }
@@ -40,7 +40,7 @@ class RefreshClientEvent extends ClientListEvent {
 class DeleteClientEvent extends ClientListEvent {
   final Client client;
 
-  DeleteClientEvent({required this.client});
+  const DeleteClientEvent({required this.client});
   @override
   List<Object> get props => [client];
 }
@@ -48,7 +48,7 @@ class DeleteClientEvent extends ClientListEvent {
 class SearchedClientDeleted extends ClientListEvent {
   final Client client;
 
-  SearchedClientDeleted({required this.client});
+  const SearchedClientDeleted({required this.client});
   @override
   List<Object> get props => [client];
 }
