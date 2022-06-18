@@ -24,3 +24,7 @@ class EditClientRepositoryException extends DomainException {
     this.editClientFailed,
   });
 }
+
+class DeleteClientRepositoryException extends DomainException {
+  DeleteClientRepositoryException(super.error, super.message);
+}

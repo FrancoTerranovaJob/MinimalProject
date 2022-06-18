@@ -7,7 +7,7 @@ import 'package:minimal/app/data/clients_data/clients_api/request/create_client_
 import 'package:minimal/app/data/clients_data/clients_api/request/post_client_request.dart';
 import 'package:minimal/app/data/clients_data/clients_api/request/update_client_request.dart';
 import 'package:minimal/app/data/clients_data/clients_api/response/add_client_response.dart';
-import 'package:minimal/app/data/clients_data/clients_api/response/client_response.dart';
+
 import 'package:minimal/app/data/clients_data/clients_api/response/edit_client_response.dart';
 import 'package:minimal/app/data/clients_data/clients_api/response/post_client_response.dart';
 import 'package:minimal/app/data/secure_storage/secure_storage.dart';
@@ -60,7 +60,7 @@ class ClientsApiImpl extends ClientsApi {
   Future<bool> deleteClient(int clientId) async {
     try {
       http.options.headers.addAll(await _getAuthorizationHeader());
-      final response = await http.delete('$clientPath/remove/$clientId');
+      final response = await http.get('$clientPath/remove/$clientId');
       final deleteData = response.data;
 
       return deleteData['success'] == true;

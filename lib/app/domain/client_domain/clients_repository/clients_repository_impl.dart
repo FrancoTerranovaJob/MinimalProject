@@ -128,6 +128,20 @@ class ClientsRepositoryImpl extends ClientsRepository {
     }
   }
 
+  @override
+  Future<bool> deleteClient(Client client) async {
+    try {
+      return await api.deleteClient(client.id);
+    } on DioException catch (e) {
+      throw DeleteClientRepositoryException(e, 'Network Exception');
+    } on ApiException catch (e) {
+      throw DeleteClientRepositoryException(e, 'Clients Api Exception');
+    } catch (e) {
+      throw DeleteClientRepositoryException(
+          e, 'Delete client repository Exception');
+    }
+  }
+
   Client _mapClientResponseToClient(ClientResponse response) => Client(
       id: response.id,
       firstname: response.firstname,

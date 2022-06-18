@@ -58,4 +58,6 @@ void setupDI() {
   services.registerLazySingleton<AddClientUseCase>(() => AddClientUseCase());
   services.registerLazySingleton<SaveEditedClientUseCase>(
       () => SaveEditedClientUseCase());
+  services
+      .registerLazySingleton<DeleteClientUseCase>(() => DeleteClientUseCase());
 }

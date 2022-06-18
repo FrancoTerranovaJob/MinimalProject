@@ -6,4 +6,5 @@ abstract class ClientsRepository {
   Future<ClientsList> getClients(ClientsList clientList);
   Future<bool> addNewClient(Client client);
   Future<bool> editClient(Client client);
+  Future<bool> deleteClient(Client client);
 }

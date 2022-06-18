@@ -83,3 +83,14 @@ class SaveEditedClientUseCase {
     }
   }
 }
+
+class DeleteClientUseCase {
+  final clientRepository = services.get<ClientsRepository>();
+  Future<bool> call(Client editedClient) async {
+    try {
+      return await clientRepository.deleteClient(editedClient);
+    } catch (e) {
+      rethrow;
+    }
+  }
+}

@@ -3,6 +3,8 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:minimal/app/domain/client_domain/entities/client.dart';
+import 'package:minimal/app/presentation/clients/client_list/bloc/client_list_bloc.dart'
+    as cl_bloc;
 import 'package:minimal/app/presentation/clients/client_list/widgets/client_card.dart';
 
 import 'package:minimal/app/presentation/clients/edit_client/bloc/edit_client_bloc.dart';
@@ -16,9 +18,15 @@ import 'package:minimal/app/presentation/clients/search_client/widgets/search_fi
 class SearchClientPage extends StatelessWidget {
   final List<Client> clients;
   final Map<int, Uint8List> cachedImages;
+  final Function(Client client) onEditSelected;
+  final Function(Client client) onDeleteSelected;
   final TextEditingController searchFieldController = TextEditingController();
   SearchClientPage(
-      {Key? key, required this.clients, this.cachedImages = const {}})
+      {Key? key,
+      required this.clients,
+      this.cachedImages = const {},
+      required this.onEditSelected,
+      required this.onDeleteSelected})
       : super(key: key);
 
   @override
@@ -47,10 +55,10 @@ class SearchClientPage extends StatelessWidget {
                   client: state.temporalClientList[index],
                   cachedImage: cachedImages[clients[index].id],
                   onImageRendered: (Uint8List image, int id) {},
-                  onEditSelected: () {
-                    _onEditSelected(state.temporalClientList[index], context);
-                  },
-                  onDeleteSelected: () {},
+                  onEditSelected: () =>
+                      onEditSelected(state.temporalClientList[index]),
+                  onDeleteSelected: () =>
+                      onDeleteSelected(state.temporalClientList[index]),
                 );
               },
             );
@@ -58,25 +66,5 @@ class SearchClientPage extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  Future _onEditSelected(Client client, BuildContext context) async {
-    await showDialog(
-        barrierDismissible: false,
-        context: context,
-        builder: (BuildContext dContext) {
-          return Dialog(
-            child: BlocProvider(
-              create: (context) =>
-                  EditClientBloc(EditClientInitial(client: client)),
-              child: EditClientPage(
-                onEditSuccess: (Client client) {
-                  BlocProvider.of<SearchClientBloc>(context)
-                      .add(RefreshClientEvent(client: client));
-                },
-              ),
-            ),
-          );
-        });
   }
 }

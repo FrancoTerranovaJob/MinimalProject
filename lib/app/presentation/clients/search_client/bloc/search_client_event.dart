@@ -12,11 +12,3 @@ class OnTypingSearchEvent extends SearchClientEvent {
   @override
   List<Object> get props => [search];
 }
-
-class RefreshClientEvent extends SearchClientEvent {
-  final Client client;
-
-  RefreshClientEvent({required this.client});
-  @override
-  List<Object> get props => [client];
-}

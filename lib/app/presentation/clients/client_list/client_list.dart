@@ -24,7 +24,7 @@ class ClientList extends StatelessWidget {
     return BlocListener<ClientListBloc, ClientListState>(
       listener: (bContext, state) {
         if (state is SearchClientFromListState) {
-          _searchClient(state, context);
+          _searchClient(state, context, blocList);
         }
       },
       child: Stack(
@@ -79,7 +79,11 @@ class ClientList extends StatelessWidget {
                           await _onEditSelected(
                               clientsList[index], context, blocList);
                         },
-                        onDeleteSelected: () {},
+                        onDeleteSelected: () {
+                          _addClientListBlocEvent(
+                              DeleteClientEvent(client: clientsList[index]),
+                              blocList);
+                        },
                       );
                     },
                   );
@@ -105,17 +109,27 @@ class ClientList extends StatelessWidget {
     bloc.add(event);
   }
 
-  void _searchClient(SearchClientFromListState state, BuildContext context) {
+  void _searchClient(SearchClientFromListState state, BuildContext context,
+      ClientListBloc clientListBloc) {
     Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => BlocProvider(
-              create: (context) => search_bloc.SearchClientBloc(
-                  search_bloc.SearchClientInitial(
-                      clients: state.clients.clients)),
-              child: SearchClientPage(
-                clients: state.clients.clients,
-                cachedImages: state.cachedClientImages,
-              ),
-            )));
+      builder: (bContext) => BlocProvider(
+        create: (context) => search_bloc.SearchClientBloc(
+            search_bloc.SearchClientInitial(clients: state.clients.clients)),
+        child: SearchClientPage(
+          clients: state.clients.clients,
+          cachedImages: state.cachedClientImages,
+          onEditSelected: (Client client) {
+            Navigator.of(context).pop();
+            _onEditSelected(client, context, clientListBloc);
+          },
+          onDeleteSelected: (Client client) {
+            Navigator.of(context).pop();
+            _addClientListBlocEvent(
+                DeleteClientEvent(client: client), clientListBloc);
+          },
+        ),
+      ),
+    ));
   }
 
   Future _onEditSelected(

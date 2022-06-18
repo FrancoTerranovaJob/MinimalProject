@@ -15,12 +15,14 @@ part 'client_list_state.dart';
 
 class ClientListBloc extends Bloc<ClientListEvent, ClientListState> {
   final getClientsUseCase = services.get<GetClientsUseCase>();
+  final deleteClientUseCase = services.get<DeleteClientUseCase>();
   ClientListBloc(ClientListState initialState) : super(initialState) {
     on<AddCachedImage>(_addCachedImage);
     on<GetClientsEvent>(_getClientsEvent);
     on<SearchClientEvent>(_searchClientEvent);
     on<RefreshClientListEvent>(_refreshClientListEvent);
     on<RefreshClientEvent>(_refreshClientEvent);
+    on<DeleteClientEvent>(_deleteClientEvent);
   }
 
   void _addCachedImage(AddCachedImage event, Emitter<ClientListState> emit) {
@@ -44,13 +46,20 @@ class ClientListBloc extends Bloc<ClientListEvent, ClientListState> {
           clients: state.clients,
           cachedClientImages: state.cachedClientImages));
     }
-    final response = await getClientsUseCase.call(state.clients);
-    if (response != state.clients) {
-      emit(ClientsDataState(
-        clients: response,
-        cachedClientImages: state.cachedClientImages,
-      ));
-    } else {
+    try {
+      final response = await getClientsUseCase.call(state.clients);
+      if (response != state.clients) {
+        emit(ClientsDataState(
+          clients: response,
+          cachedClientImages: state.cachedClientImages,
+        ));
+      } else {
+        emit(ClientsDataState(
+          clients: state.clients,
+          cachedClientImages: state.cachedClientImages,
+        ));
+      }
+    } catch (e) {
       emit(ClientsDataState(
         clients: state.clients,
         cachedClientImages: state.cachedClientImages,
@@ -102,5 +111,30 @@ class ClientListBloc extends Bloc<ClientListEvent, ClientListState> {
           currentPage: state.clients.currentPage),
       cachedClientImages: state.cachedClientImages,
     ));
+  }
+
+  void _deleteClientEvent(
+      DeleteClientEvent event, Emitter<ClientListState> emit) async {
+    try {
+      if (await deleteClientUseCase.call(event.client)) {
+        final newClientList = <Client>[];
+        newClientList.addAll(state.clients.clients);
+
+        newClientList.removeWhere((client) => client.id == event.client.id);
+
+        emit(ClientsDataState(
+          clients: ClientsList(
+              clients: newClientList,
+              nextPage: state.clients.nextPage,
+              currentPage: state.clients.currentPage),
+          cachedClientImages: state.cachedClientImages,
+        ));
+      }
+    } catch (e) {
+      emit(ClientsDataState(
+        clients: state.clients,
+        cachedClientImages: state.cachedClientImages,
+      ));
+    }
   }
 }

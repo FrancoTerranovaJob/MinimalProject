@@ -36,3 +36,19 @@ class RefreshClientEvent extends ClientListEvent {
   @override
   List<Object> get props => [client];
 }
+
+class DeleteClientEvent extends ClientListEvent {
+  final Client client;
+
+  DeleteClientEvent({required this.client});
+  @override
+  List<Object> get props => [client];
+}
+
+class SearchedClientDeleted extends ClientListEvent {
+  final Client client;
+
+  SearchedClientDeleted({required this.client});
+  @override
+  List<Object> get props => [client];
+}

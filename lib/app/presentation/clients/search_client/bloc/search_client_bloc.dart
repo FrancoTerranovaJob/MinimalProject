@@ -12,7 +12,6 @@ class SearchClientBloc extends Bloc<SearchClientEvent, SearchClientState> {
   final searchClientsUseCase = services.get<SearchClientsUseCase>();
   SearchClientBloc(SearchClientState initialState) : super(initialState) {
     on<OnTypingSearchEvent>(_onTypingSearchEvent);
-    on<RefreshClientEvent>(_refreshClientEvent);
   }
 
   void _onTypingSearchEvent(
@@ -22,20 +21,5 @@ class SearchClientBloc extends Bloc<SearchClientEvent, SearchClientState> {
         search: event.search,
         clients: state.clients,
         temporalClientList: searchResult));
-  }
-
-  void _refreshClientEvent(
-      RefreshClientEvent event, Emitter<SearchClientState> emit) {
-    final newClientList = <Client>[];
-    newClientList.addAll(state.clients);
-
-    final index =
-        newClientList.indexWhere((client) => client.id == event.client.id);
-    newClientList[index] = event.client;
-    emit(SearchingClientState(
-      clients: newClientList,
-      search: '',
-      temporalClientList: [],
-    ));
   }
 }
