@@ -8,7 +8,5 @@ void main() async {
   setupDI();
   WidgetsFlutterBinding.ensureInitialized();
 
-  final result = await services.get<ClientsApi>().deleteClient(924);
-
   runApp(const MinimalApp());
 }
