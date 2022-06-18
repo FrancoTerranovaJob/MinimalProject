@@ -28,3 +28,11 @@ class RefreshClientListEvent extends ClientListEvent {
   @override
   List<Object> get props => [];
 }
+
+class RefreshClientEvent extends ClientListEvent {
+  final Client client;
+
+  RefreshClientEvent({required this.client});
+  @override
+  List<Object> get props => [client];
+}

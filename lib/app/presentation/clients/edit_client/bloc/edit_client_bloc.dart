@@ -81,7 +81,7 @@ class EditClientBloc extends Bloc<EditClientEvent, EditClientState> {
       try {
         await saveEditedClientUseCase.call(state.client);
 
-        emit(EditingClientState(
+        emit(EditClientSuccessState(
             client: state.client, validationStatus: state.validationStatus));
       } on EditClientRepositoryException catch (e) {
         final errorType = _handleEditClient(e);

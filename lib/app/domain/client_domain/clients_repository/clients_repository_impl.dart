@@ -68,13 +68,14 @@ class ClientsRepositoryImpl extends ClientsRepository {
   @override
   Future<bool> addNewClient(Client client) async {
     try {
-      final response = await api.addClient(CreateClientRequest(
-          firstname: client.firstname,
-          lastname: client.lastname,
-          email: client.email,
-          address: client.address,
-          photo: client.photo,
-          caption: client.caption));
+      final AddClientResponse response = await api.addClient(
+          CreateClientRequest(
+              firstname: client.firstname,
+              lastname: client.lastname,
+              email: client.email,
+              address: client.address,
+              photo: client.photo,
+              caption: client.caption));
       if (response is AddClientSuccessResponse) {
         return true;
       }
@@ -97,14 +98,15 @@ class ClientsRepositoryImpl extends ClientsRepository {
   @override
   Future<bool> editClient(Client client) async {
     try {
-      final response = await api.updateClient(UpdateClientRequest(
-          firstname: client.firstname,
-          lastname: client.lastname,
-          email: client.email,
-          address: client.address,
-          photo: client.photo,
-          caption: client.caption,
-          id: client.id));
+      final EditClientResponse response = await api.updateClient(
+          UpdateClientRequest(
+              firstname: client.firstname,
+              lastname: client.lastname,
+              email: client.email,
+              address: client.address,
+              photo: client.photo,
+              caption: client.caption,
+              id: client.id));
 
       if (response is EditClientResponseSuccess) {
         return true;

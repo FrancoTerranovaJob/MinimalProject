@@ -9,7 +9,8 @@ import 'package:minimal/app/presentation/clients/client_list/widgets/loading_cli
 import 'package:minimal/app/presentation/clients/edit_client/bloc/edit_client_bloc.dart';
 import 'package:minimal/app/presentation/clients/edit_client/edit_client_page.dart';
 
-import 'package:minimal/app/presentation/clients/search_client/bloc/search_client_bloc.dart';
+import 'package:minimal/app/presentation/clients/search_client/bloc/search_client_bloc.dart'
+    as search_bloc;
 import 'package:minimal/app/presentation/clients/search_client/search_client_page.dart';
 import 'package:minimal/app/presentation/common/buttons/dense_button.dart';
 import 'package:minimal/app/presentation/common/progress/load_progress.dart';
@@ -56,7 +57,8 @@ class ClientList extends StatelessWidget {
                                               image: image, clientId: clientId),
                                           blocList),
                               onEditSelected: () {
-                                _onEditSelected(clientsList[index], context);
+                                _onEditSelected(
+                                    clientsList[index], context, blocList);
                               },
                               onDeleteSelected: () {},
                             ),
@@ -74,7 +76,8 @@ class ClientList extends StatelessWidget {
                                     image: image, clientId: clientId),
                                 blocList),
                         onEditSelected: () async {
-                          await _onEditSelected(clientsList[index], context);
+                          await _onEditSelected(
+                              clientsList[index], context, blocList);
                         },
                         onDeleteSelected: () {},
                       );
@@ -105,8 +108,9 @@ class ClientList extends StatelessWidget {
   void _searchClient(SearchClientFromListState state, BuildContext context) {
     Navigator.of(context).push(MaterialPageRoute(
         builder: (context) => BlocProvider(
-              create: (context) => SearchClientBloc(
-                  SearchClientInitial(clients: state.clients.clients)),
+              create: (context) => search_bloc.SearchClientBloc(
+                  search_bloc.SearchClientInitial(
+                      clients: state.clients.clients)),
               child: SearchClientPage(
                 clients: state.clients.clients,
                 cachedImages: state.cachedClientImages,
@@ -114,7 +118,8 @@ class ClientList extends StatelessWidget {
             )));
   }
 
-  Future _onEditSelected(Client client, BuildContext context) async {
+  Future _onEditSelected(
+      Client client, BuildContext context, ClientListBloc bloc) async {
     await showDialog(
         barrierDismissible: false,
         context: context,
@@ -125,7 +130,10 @@ class ClientList extends StatelessWidget {
               create: (context) =>
                   EditClientBloc(EditClientInitial(client: client)),
               child: EditClientPage(
-                onEditSuccess: (Client client) {},
+                onEditSuccess: (Client client) {
+                  _addClientListBlocEvent(
+                      RefreshClientEvent(client: client), bloc);
+                },
               ),
             ),
           );

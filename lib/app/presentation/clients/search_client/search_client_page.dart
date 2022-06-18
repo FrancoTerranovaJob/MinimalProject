@@ -64,13 +64,16 @@ class SearchClientPage extends StatelessWidget {
     await showDialog(
         barrierDismissible: false,
         context: context,
-        builder: (BuildContext context) {
+        builder: (BuildContext dContext) {
           return Dialog(
             child: BlocProvider(
               create: (context) =>
                   EditClientBloc(EditClientInitial(client: client)),
               child: EditClientPage(
-                onEditSuccess: (Client client) {},
+                onEditSuccess: (Client client) {
+                  BlocProvider.of<SearchClientBloc>(context)
+                      .add(RefreshClientEvent(client: client));
+                },
               ),
             ),
           );
