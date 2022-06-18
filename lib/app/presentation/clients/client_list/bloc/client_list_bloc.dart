@@ -77,14 +77,21 @@ class ClientListBloc extends Bloc<ClientListEvent, ClientListState> {
       RefreshClientListEvent event, Emitter<ClientListState> emit) async {
     emit(ClientsLoadingState(
         clients: state.clients, cachedClientImages: state.cachedClientImages));
-    final response =
-        await getClientsUseCase.call(const ClientsList(currentPage: 0));
-    if (response != state.clients) {
-      emit(ClientsDataState(
-        clients: response,
-        cachedClientImages: state.cachedClientImages,
-      ));
-    } else {
+    try {
+      final response =
+          await getClientsUseCase.call(const ClientsList(currentPage: 0));
+      if (response != state.clients) {
+        emit(ClientsDataState(
+          clients: response,
+          cachedClientImages: state.cachedClientImages,
+        ));
+      } else {
+        emit(ClientsDataState(
+          clients: state.clients,
+          cachedClientImages: state.cachedClientImages,
+        ));
+      }
+    } catch (e) {
       emit(ClientsDataState(
         clients: state.clients,
         cachedClientImages: state.cachedClientImages,

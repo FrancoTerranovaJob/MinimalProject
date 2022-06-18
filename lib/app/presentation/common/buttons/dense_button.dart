@@ -37,7 +37,7 @@ class DenseButton extends StatelessWidget {
             )),
             backgroundColor: MaterialStateColor.resolveWith((states) {
               if (states.contains(MaterialState.disabled)) {
-                return Theme.of(context).colorScheme.surface;
+                return Theme.of(context).colorScheme.surface.withOpacity(0.5);
               }
               return Theme.of(context).colorScheme.secondary;
             })),
